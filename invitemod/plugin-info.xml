@@ -1,0 +1,82 @@
+<?xml version="1.0" standalone="yes" ?>
+<plugin id="CerealGuy:InviteMod">
+	<name>InviteMod</name>
+	<author>CleptoMan</author>
+	<description>New user need to be invited</description>
+	<version>1.0</version>
+
+	<actions>
+		<action action="invite" function="imActionInvite" filename="src/InviteMod" />
+	</actions>
+	<settings>
+		<setting name="invitemod_posts_recieve" default="50;100;200;500;1000" />
+		<setting name="invitemod_posts_reward_inviter" default="1000;2000" />
+
+	</settings>
+	<settings-page area="invitemod">
+		<language file="lang/InviteMod-Admin" />
+		<text name="invitemod_posts_recieve" />
+		<text name="invitemod_posts_reward_inviter" />
+	</settings-page>
+	<hooks>
+		<function point="register_form_pre" function="im_register_form_pre" filename="$plugindir/src/InviteMod" />
+		<function point="register2_check" function="im_register2_check" filename="$plugindir/src/InviteMod" />
+		<function point="register2_done" function="im_register2_done" filename="$plugindir/src/InviteMod" />
+		<function point="create_post_after" function="im_create_post_after" filename="$plugindir/src/InviteMod" />
+		<function point="menu_items" function="im_profile_sidebar" filename="$plugindir/src/InviteMod" />
+		<function point="profile_areas" function="im_profile_areas" filename="$plugindir/src/InviteMod" />
+		<function point="notification_callback" function="im_notification_callback" filename="$plugindir/src/InviteMod" />
+		
+	</hooks>
+	<newperms filename="lang/InviteMod-Admin">
+		<groups>
+			<group type="membergroup" name="im_group" />
+		</groups>
+		<permissionlist>
+			<permission type="membergroup" name="invitemodallowed" group="im_group" />
+			<permission type="membergroup" name="invitemodinfiniteslots" group="im_group" />
+
+		</permissionlist>
+	</newperms>
+	<database>
+		<tables>
+			<table if-exists="update" name="{db_prefix}im_keys">
+				<columns>
+					<column name="id" autoincrement="yes" type="mediumint" unsigned="yes" />
+					<column name="id_member" type="mediumint" unsigned="yes" />
+					<column name="invite" type="varchar" size="255" />
+					<column name="time" type="mediumint" unsigned="yes" />
+				</columns>
+				<index type="primary">
+					<field>id</field>
+					<field>id_member</field>
+					<field>invite</field>
+				</index>
+
+			</table>
+			<table if-exists="update" name="{db_prefix}im_invited">
+				<columns>
+					<column name="id_member" type="mediumint" unsigned="yes" />
+					<column name="id_invited_from" type="mediumint" unsigned="yes" />
+				</columns>
+				<index type="primary">
+					<field>id_member</field>
+				</index>
+
+			</table>
+			<table if-exists="update" name="{db_prefix}im_member">
+				<columns>
+					<column name="id_member" type="mediumint" unsigned="yes" />
+					<column name="slots_left" type="mediumint" unsigned="yes" />
+				</columns>
+				<index type="primary">
+					<field>id_member</field>
+				</index>
+
+			</table>
+		
+
+		</tables>
+	</database>
+	<acp-url>action=admin;area=invitemod</acp-url>
+</plugin>

@@ -1,0 +1,12 @@
+v0.4
+  - got Notifications to work
+  - Language files
+v0.3
+  - successful added admin settings
+    - now its possible to reward inviter and user on x posts (customisable via acp)
+
+v0.2
+  - switched to more userfriendly usability (reqWin is fun :D)
+  - ?action=invite now accessable via sidebar entry
+v0.1
+  - added core features (create invitekey, sql, main template...)
