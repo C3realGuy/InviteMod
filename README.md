@@ -18,7 +18,7 @@ Installation
 Drop the 'invitemod' directory in your plugins folder.
 Now you have to add the custom hooks. You need to do this after each upgrade/update!
 
-In /core/app/Register.php
+In */core/app/Register.php*<br>
 Search ``// Process any errors.``
 and add BEFORE
  ``call_hook("register2_check", array($_POST, &$reg_errors));``
@@ -43,7 +43,7 @@ call_hook('register_form_pre', array());
 
 
 
-In /core/app/ManagePlugins.php
+In */core/app/ManagePlugins.php*<br>
 Search:
 ``'infraction_issue_content',``
 and add AFTER:
