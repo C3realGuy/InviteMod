@@ -23,14 +23,23 @@ Search ``// Process any errors.``
 and add BEFORE
  ``call_hook("register2_check", array($_POST, &$reg_errors));``
 
-Search ``// If COPPA has been selected then things get complicated, setup the template.``
+Search 
+````
+// If COPPA has been selected then things get complicated, setup the template.
+````
  and add BEFORE
-``call_hook('register2_done', array($memberID));``
+````
+call_hook('register2_done', array($memberID));
+````
 
 Search 
-``loadTemplate('Register');`` 
+````
+loadTemplate('Register');
+````
 and add AFTER
-``call_hook('register_form_pre', array());``
+````
+call_hook('register_form_pre', array());
+````
 
 
 
