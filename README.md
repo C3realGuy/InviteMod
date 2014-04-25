@@ -39,12 +39,10 @@ Search:
 ``'infraction_issue_content',``
 and add AFTER:
 ````
-
 			// Register
 			'register_form_custom_field',
 			'register2_check',
 			'register2_done',
-
 ````
 
 Activate plugin in acp
