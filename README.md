@@ -49,7 +49,7 @@ Search:
 and add AFTER:
 ````
 			// Register
-			'register_form_custom_field',
+			'register_form_pre',
 			'register2_check',
 			'register2_done',
 ````
