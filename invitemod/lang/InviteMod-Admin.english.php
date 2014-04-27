@@ -1,7 +1,7 @@
 <?php
 $txt['permissiongroup_im_group'] = "Invite Mod";
-$txt['permissionname_invitemodinfiniteslots'] = "Unendlich viele Slots";
-$txt['permissionname_invitemodallowed'] = "Zugriff auf Invite";
-$txt['invitemod_split_setting'] = "(mit \";\" trennen)";
-$txt['invitemod_posts_recieve'] = "Posts bei denen der User einen slot bekommen soll {$txt['invitemod_split_setting']}";
-$txt['invitemod_posts_reward_inviter'] = "Posts bei denen der Inviter einen slot bekommen soll {$txt['invitemod_split_setting']}";
+$txt['permissionname_invitemodinfiniteslots'] = "Limitless Inviteslots";
+$txt['permissionname_invitemodallowed'] = "Allowed to invite";
+$txt['invitemod_split_setting'] = "(seperate with \";\")";
+$txt['invitemod_posts_recieve'] = "On which Posts should User get a new Slot? {$txt['invitemod_split_setting']}";
+$txt['invitemod_posts_reward_inviter'] = "On which Posts should Inviter get a new Slot? {$txt['invitemod_split_setting']}";
