@@ -1,6 +1,7 @@
 <?php
 $txt['im_infinite'] = "unendlich";
 $txt['im_infinite_symbol'] = "∞";
+$txt['im_nobody'] = "Niemand";
 // Popups
 $txt['im_pop_close'] = "Schließen";
 

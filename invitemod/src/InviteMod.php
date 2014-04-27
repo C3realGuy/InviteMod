@@ -193,20 +193,22 @@ function im_profile_sidebar(){
 	
 	$keys = ($im->inviteinfo['available_slots'] == -1 ? "∞" : $im->inviteinfo['available_slots']);
 	$ps_string = strtr($txt['im_ps_invites'] , array("{A_KEYS}" => $keys));
-	add_js('$( document ).ready(function() {$( ".now" ).before( "<ul><li><a href=\"index.php?action=invite\">'.$ps_string.'</a></li></ul>" );});');
+	add_js('$( document ).ready(function() {$( ".now" ).before( "<ul><li><a href=\"index.php?action=invite\">'.$ps_string.'</a></li><\/ul>" );});');
 	
 }
 
 function im_profile_areas(&$profile_areas){
-	global $context;
+	global $context, $txt;
 	loadPluginSource('CerealGuy:InviteMod', 'src/Subs-InviteMod');
+	loadPluginLanguage('CerealGuy:InviteMod', 'lang/InviteMod');
 	$inviter_id = invited_by($context['id_member']);
-	$inviter_name = id_to_username($inviter_id);
-	add_js('$("#detailedinfo").find("dl").last().append("<dt>'.$txt['im_pa_invited_by'].'</dt><dd><a href=\"<URL>?action=profile;u='.$inviter_id.'\">'.$inviter_name.'</a></dd>");');
+	$inviter_href = ($inviter_id == 0 ? "<a>{$txt['im_nobody']}</a>" : "<a href=\"<URL>?action=profile;u=".$inviter_id."\">".id_to_username($inviter_id)."</a>");
+	add_js('$("#detailedinfo").find("dl").last().append("<dt>'.$txt['im_pa_invited_by'].'</dt><dd>'.$inviter_href.'</dd>");');
 }
 
 function im_notification_callback(array &$notifiers){
 	loadPluginSource('CerealGuy:InviteMod', 'src/InviteMod-Notifier');
+	
 	$notifiers['invite_reward'] = new InviteReward_Notifier();
 	$notifiers['invite_newuser'] = new InviteNewUser_Notifier();
 }

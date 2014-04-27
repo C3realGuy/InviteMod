@@ -165,7 +165,7 @@ function id_to_username($userid){
 	$query = wesql::query('SELECT member_name FROM {db_prefix}members WHERE id_member = {int:id_member} LIMIT 1',
 		array('id_member' => $userid));
 	if(wesql::num_rows($query) == 0){
-		return "Niemand";
+		return null;
 	}else{
 		return wesql::fetch_assoc($query)['member_name'];
 	}

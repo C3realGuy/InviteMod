@@ -1,26 +1,27 @@
 <?php
-$txt['im_infinite'] = "unendlich";
+$txt['im_infinite'] = "limitless";
 $txt['im_infinite_symbol'] = "∞";
+$txt['im_nobody'] = "Nobody";
 // Popups
-$txt['im_pop_close'] = "Schließen";
+$txt['im_pop_close'] = "Close";
 
 // - Create invitekey
-$txt['im_pop_crinv_help'] = "Invitekey erstellt";
-$txt['im_pop_crinv_help_error1'] = "Invitekey konnte nicht erstellt werden";
+$txt['im_pop_crinv_help'] = "Create Invitekey";
+$txt['im_pop_crinv_help_error1'] = "Could'n create invitekey";
 
-$txt['im_pop_crinv_contents'] = "Dein neuer Invitekey:";
-$txt['im_pop_crinv_contents_error1'] = "Du kannst keinen Invitekey erstellen. Entweder du hast keine verfügbaren Slots mehr, oder es ist dir nicht erlaubt welche zu erstellen.";
+$txt['im_pop_crinv_contents'] = "Your new Invitekey:";
+$txt['im_pop_crinv_contents_error1'] = "You can't create invitekeys. It's possible that you don't have any Inviteslots left, or you are not allowed to generate one.";
 
 // - Delete invitekey
 
-$txt['im_pop_delinv_help'] = "Key gelöscht";
-$txt['im_pop_delinv_help_error1'] = "Fehler";
+$txt['im_pop_delinv_help'] = "Key deleted";
+$txt['im_pop_delinv_help_error1'] = "Error";
 
-$txt['im_pop_delinv_contents'] = "Key wurde erfolgreich gelöscht.";
-$txt['im_pop_delinv_contents_error1'] ="Du kannst diesen Key nicht löschen.";
+$txt['im_pop_delinv_contents'] = "Key successfully deleted.";
+$txt['im_pop_delinv_contents_error1'] ="You can't delete this key.";
 
 // Profile Area
-$txt['im_pa_invited_by'] = "Eingeladen von:";
+$txt['im_pa_invited_by'] = "Invited by:";
 
 // Profile Sidebar
 $txt['im_ps_invites'] = "Invites ({A_KEYS})";
@@ -29,22 +30,22 @@ $txt['im_ps_invites'] = "Invites ({A_KEYS})";
 // - Main
 $txt['im_main_title'] = "{FORUM_NAME} - Invite";
 $txt['im_main_cat_value'] = "Invite";
-$txt['im_main_inviteslots'] = "Verfügbare Inviteslots:";
-$txt['im_main_activekeys'] = "Aktive Invitekeys:";
-$txt['im_main_activekeys_desc'] = "Anzahl der erstellten und freien Invitkeys.";
-$txt['im_main_inviteduser'] = "Eingeladene User:";
-$txt['im_main_inviteduser_desc'] = "Anzahl der User, welche sich bereits durch einen Einladungscode von dir registriert haben.";
-$txt['im_main_createinvitekey'] = "Invitekey erstellen";
+$txt['im_main_inviteslots'] = "Available Inviteslots:";
+$txt['im_main_activekeys'] = "Active Invitekeys:";
+$txt['im_main_activekeys_desc'] = "Amount of created and unused Invitkeys.";
+$txt['im_main_inviteduser'] = "Invited Users:";
+$txt['im_main_inviteduser_desc'] = "Amount of members, which have registered with an Invitekey of you.";
+$txt['im_main_createinvitekey'] = "Create Invitekey";
 
 // - List invited user
-$txt['im_main_list_inviteduser'] = "Eingeladene Benutzer";
-$txt['im_main_list_inviteduser_error1'] = "Du hast noch niemanden eingeladen...";
-$txt['im_main_list_inviteduser_username'] = "Benutzername";
-$txt['im_main_list_inviteduser_posts'] = "Beiträge";
+$txt['im_main_list_inviteduser'] = "Invited Members";
+$txt['im_main_list_inviteduser_error1'] = "Currently you have no one invited...";
+$txt['im_main_list_inviteduser_username'] = "Username";
+$txt['im_main_list_inviteduser_posts'] = "Posts";
 
 // - List invitekeys
 $txt['im_main_list_invitekeys'] = "Invite-Keys";
-$txt['im_main_list_invitekeys_error1'] = "Du hast keine aktiven Invitekeys...";
+$txt['im_main_list_invitekeys_error1'] = "You have no active Invitekeys...";
 $txt['im_main_list_invitekeys_invitekey'] = "Invitekey";
-$txt['im_main_list_invitekeys_butdelete'] = "Löschen";
+$txt['im_main_list_invitekeys_butdelete'] = "Delete";
 
