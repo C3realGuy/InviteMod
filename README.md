@@ -61,5 +61,5 @@ ToDo
 
 - Better Permissions
 - more admin options
-
+- use register_post & register_validate?!
 
