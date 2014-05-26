@@ -1,8 +1,8 @@
 InviteMod for Wedge
 -------------------
 
-If you enable this Plugin new users have to have an Invitekey to register. Already registered
-Members can genereate those invitekeys. 
+With this plugin, new users need an Invitekey to register.
+Those Invitekeys can be generated from already registered Members.
 
 
 Features:
@@ -15,51 +15,36 @@ Features:
 Installation
 ------------
 
-Drop the 'invitemod' directory in your plugins folder.
-Now you have to add the custom hooks. You need to do this after each upgrade/update!
+1. Drop the 'invitemod' directory in your plugins folder.
 
-In */core/app/Register.php*<br>
-Search ``// Process any errors.``
-and add BEFORE
- ``call_hook("register2_check", array($_POST, &$reg_errors));``
+2. Now you have to add the custom hooks. You need to do this after each upgrade/update!
 
-Search 
+   In */core/app/Register.php*<br> 
+   Search 
 ````
-// If COPPA has been selected then things get complicated, setup the template.
+   loadTemplate('Register');
 ````
- and add BEFORE
+   and add AFTER
 ````
-call_hook('register2_done', array($memberID));
-````
-
-Search 
-````
-loadTemplate('Register');
-````
-and add AFTER
-````
-call_hook('register_form_pre', array());
+   call_hook('register_form_pre', array());
 ````
 
 
 
-In */core/app/ManagePlugins.php*<br>
-Search:
-``'infraction_issue_content',``
-and add AFTER:
+   In */core/app/ManagePlugins.php*<br>
+   Search:
+   ``'register',``
+   and add AFTER:
 ````
-			// Register
 			'register_form_pre',
-			'register2_check',
-			'register2_done',
 ````
 
-Activate plugin in acp
+3. Activate plugin in acp
+4. (optional) Configurate the plugin
 
 ToDo
 ----
 
 - Better Permissions
 - more admin options
-- use register_post & register_validate?!
 

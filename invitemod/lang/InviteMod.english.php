@@ -49,3 +49,8 @@ $txt['im_main_list_invitekeys_error1'] = "You have no active Invitekeys...";
 $txt['im_main_list_invitekeys_invitekey'] = "Invitekey";
 $txt['im_main_list_invitekeys_butdelete'] = "Delete";
 
+// Registration
+$txt['im_reg_err_invalid'] = "Invalid Invitekey";
+$txt['im_reg_err_nokey'] = "No key entered";
+
+

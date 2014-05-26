@@ -116,40 +116,51 @@ function im_register_form_pre(){
 							<input name="invitekey" id="" size="30" tabindex="1" maxlength="32" value="" required="">
 						</dd>';
 	*/
-	log_error("hey");
 	add_js('$(".windowbg2.wrc").first().find("fieldset").append("<dl class=\"register_form\" id=\"invitekey\"><dt><strong><label for=\"we_autov_invitekey\">Invitekey:</label></strong></dt><dd><input name=\"invitekey\" size=\"30\" tabindex=\"5\" ></dd></dl>");');
 
 }
 
-function im_register2_check($post_vars, &$reg_errors){
+function im_register_validate(&$regOptions){
 	//Validate registration key
 	global $settings, $context, $txt;
-	$key = $post_vars['invitekey'];
-	//loadSource('Class-DB');
+	$invite_errors = array();
+	if($regOptions['interface'] != 'guest'){
+		// Of course we dont need a invitekey if an admin tries to create a new member
+		return array(); 
+	}
+	$key = $_POST['invitekey'];
+	loadPluginLanguage('CerealGuy:InviteMod', 'lang/InviteMod');
 	loadPluginSource('CerealGuy:InviteMod', 'src/Subs-InviteMod');
 	
 	if(!isset($key)){
-		$reg_errors[] = "Invitekey not delivered";
+		$invite_errors[] = array('lang', 'im_reg_err_nokey');
 	}else{ 
 		$context['invitekey'] = new invitekey($key);
 		if(!$context['invitekey']->valid()){
-			$reg_errors[] = "Invitecode invalid";
+			$invite_errors[] = array('lang', 'im_reg_err_invalid');
 		}
 	}
-	
+
+
+	return $invite_errors;
 }
 
-function im_register2_done($memberID){
+function im_register_post(&$regOptions, &$theme_vars, &$memberID){
 	//Registration was successful, now update user info
 	global $settings, $context, $txt;
-	loadPluginSource('CerealGuy:InviteMod', 'src/Subs-InviteMod');
-	$im = new im($context['invitekey']->invitekey['id_member']);
-	$im->del_invitekey($context['invitekey']->invitekey['id']);
-	$im->create_invitedmember_entry($memberID);
+	if($regOptions['interface'] == 'guest'){ // Only if user is guest => "real" registration
+		
+		loadPluginSource('CerealGuy:InviteMod', 'src/Subs-InviteMod');
+		$im = new im($context['invitekey']->invitekey['id_member']);
+		$im->del_invitekey($context['invitekey']->invitekey['id']);
+		$im->create_invitedmember_entry($memberID);
 	
-	//Send notification that user has successful registered
+		//Send notification that user has successful registered
 	
-	Notification::issue('invitenewuser', $context['invitekey']->invitekey['id_member'], $context['invitekey']->invitekey['id'], array('invite' => array('invited_id' => $memberID)));
+		Notification::issue('invitenewuser', $context['invitekey']->invitekey['id_member'], $context['invitekey']->invitekey['id'], array('invite' => array('invited_id' => $memberID)));
+	}
+
+
 }
 function im_create_post_after(&$msgOptions, &$topicOptions, &$posterOptions, &$new_topic){
 	//Check if user should be rewarded (or inviter)
