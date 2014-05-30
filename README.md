@@ -23,7 +23,7 @@ Installation
    Search 
    ````
    loadTemplate('Register');
-   ````
+   ```` (around line 51)
    and add AFTER
    ````
    call_hook('register_form_pre', array());
