@@ -20,10 +20,10 @@ Installation
 2. Now you have to add the custom hooks. You need to do this after each upgrade/update!
 
    In */core/app/Register.php*<br> 
-   Search 
+   Search (around line 51)
    ````
    loadTemplate('Register');
-   ```` (around line 51)
+   ```` 
    and add AFTER
    ````
    call_hook('register_form_pre', array());
