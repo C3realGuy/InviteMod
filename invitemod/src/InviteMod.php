@@ -214,7 +214,7 @@ function im_profile_areas(&$profile_areas){
 	loadPluginLanguage('CerealGuy:InviteMod', 'lang/InviteMod');
 	$inviter_id = invited_by($context['id_member']);
 	$inviter_href = ($inviter_id == 0 ? "<a>{$txt['im_nobody']}</a>" : "<a href=\"<URL>?action=profile;u=".$inviter_id."\">".id_to_username($inviter_id)."</a>");
-	add_js('$("#detailedinfo").find("dl").last().append("<dt>'.$txt['im_pa_invited_by'].'</dt><dd>'.$inviter_href.'</dd>");');
+	add_js('$("#detailedinfo").find("dl").last().append(\'<dt>'.$txt['im_pa_invited_by'].'</dt><dd>'.$inviter_href.'</dd>\');');
 }
 
 function im_notification_callback(array &$notifiers){
