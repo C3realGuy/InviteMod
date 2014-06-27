@@ -10,6 +10,7 @@ Features:
  - Permissions for infinite slots
  - User recieves on x posts an invitekey
  - Notificationsupport
+ - Invite donators can get rewarded
 
 
 Installation
