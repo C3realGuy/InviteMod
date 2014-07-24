@@ -194,7 +194,7 @@ function im_create_post_after(&$msgOptions, &$topicOptions, &$posterOptions, &$n
 		Notification::issue('invitereward', $notify['member_id'], $notify['object'], array('invite' => array('reason' => $notify['reason'])));
 	} 
 }
-function im_profile_sidebar(){
+function im_load_theme(){
 	//Add link to invitemod on sidebar
 	global $txt;
 	loadPluginSource('CerealGuy:InviteMod', 'src/Subs-InviteMod');

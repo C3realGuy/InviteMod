@@ -23,7 +23,7 @@
 		<function point="register_validate" function="im_register_validate" filename="$plugindir/src/InviteMod" />
 		<function point="register_post" function="im_register_post" filename="$plugindir/src/InviteMod" />
 		<function point="create_post_after" function="im_create_post_after" filename="$plugindir/src/InviteMod" />
-		<function point="menu_items" function="im_profile_sidebar" filename="$plugindir/src/InviteMod" />
+		<function point="load_theme" function="im_load_theme" filename="$plugindir/src/InviteMod" />
 		<function point="profile_areas" function="im_profile_areas" filename="$plugindir/src/InviteMod" />
 		<function point="notification_callback" function="im_notification_callback" filename="$plugindir/src/InviteMod" />
 		
