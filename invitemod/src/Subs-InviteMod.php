@@ -17,10 +17,9 @@ class im {
 	public function update_invitekeys(){
 		$query = wesql::query("SELECT id, id_member, invite, time FROM {db_prefix}im_keys WHERE id_member = {int:id_member}",
 					array("id_member" => $this->inviteinfo['id'],));
-		$this->inviteinfo['active_keys'] = wesql::num_rows($query) -1;
+		$this->inviteinfo['active_keys'] = wesql::num_rows($query);
 		$this->invitekeys = array();
 		if($this->inviteinfo['active_keys'] > 0){
-			$tmp = wesql::fetch_assoc($query);
 			while($r = wesql::fetch_assoc($query)){
 				$tmparray = array();
 				$tmparray['id'] = $r['id'];

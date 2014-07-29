@@ -36,7 +36,7 @@ function imActionInvite(){
 		//loadPluginLanguage('CerealGuy:UploadContentCreator', 'lang/UploadContentCreator');
 		loadPluginTemplate($pid, 'src/InviteMod');
 
-        	$im = new im(we::$user['mod_cache']['id']);
+        	$im = new im(MID);
 		$im->update_all();
 		$inviteinfo = $im->inviteinfo;
 		$invitekeys = $im->invitekeys;
@@ -204,7 +204,8 @@ function im_load_theme(){
 	
 	$keys = ($im->inviteinfo['available_slots'] == -1 ? "∞" : $im->inviteinfo['available_slots']);
 	$ps_string = strtr($txt['im_ps_invites'] , array("{A_KEYS}" => $keys));
-	add_js('$( document ).ready(function() {$( ".now" ).before( "<ul><li><a href=\"index.php?action=invite\">'.$ps_string.'</a></li><\/ul>" );});');
+	add_js('$( document ).ready(function() {var inv = "<li><a href=\"index.php?action=invite\">'.$ps_string.'</a></li>";
+		if($("#noava").length){$("#noava").append(inv);}else{$( ".now" ).before( "<ul>"+inv+"<\/ul>" );}});');
 	
 }
 

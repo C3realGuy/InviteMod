@@ -33,7 +33,7 @@
 			<group type="membergroup" name="im_group" />
 		</groups>
 		<permissionlist>
-			<permission type="membergroup" name="invitemodallowed" group="im_group" />
+			<permission type="membergroup" name="invitemodallowed" ownany="false" group="im_group" />
 			<permission type="membergroup" name="invitemodinfiniteslots" group="im_group" />
 
 		</permissionlist>
