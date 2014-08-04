@@ -52,6 +52,10 @@
 					<field>id_member</field>
 					<field>invite</field>
 				</index>
+				<index type="unique">
+					<field>id</field>
+					<field>invite</field>
+				</index>
 
 			</table>
 			<table if-exists="update" name="{db_prefix}im_invited">
@@ -62,6 +66,9 @@
 				<index type="primary">
 					<field>id_member</field>
 				</index>
+				<index type="unique">
+					<field>id_member</field>
+				</index>
 
 			</table>
 			<table if-exists="update" name="{db_prefix}im_member">
@@ -70,6 +77,9 @@
 					<column name="slots_left" type="mediumint" unsigned="yes" />
 				</columns>
 				<index type="primary">
+					<field>id_member</field>
+				</index>
+				<index type="unique">
 					<field>id_member</field>
 				</index>
 
