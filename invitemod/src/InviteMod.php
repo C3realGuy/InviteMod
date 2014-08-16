@@ -52,7 +52,7 @@ function imCreateInviteKey(){
 	global $settings, $context, $txt, $pid;
 
 	loadPluginTemplate($pid, 'src/InviteMod');
-	$im = new im(we::$user['mod_cache']['id']);
+	$im = new im(MID);
 		
 	$im->update_availableslots();
 	if($im->inviteinfo['available_slots'] > 0 or allowedto("invitemodinfiniteslots")){
@@ -83,7 +83,7 @@ function imDelInviteKey($keyid){
 	$allowed = false;
 	loadPluginTemplate($pid, 'src/InviteMod');
 	
-	$im = new im(we::$user['mod_cache']['id']);
+	$im = new im(MID);
 	
 	$im->update_invitekeys();
 	foreach($im->invitekeys as $k){
@@ -172,14 +172,14 @@ function im_create_post_after(&$msgOptions, &$topicOptions, &$posterOptions, &$n
 	$notify = array("notify" => false, "reason" => "", "object" => $msgOptions['id'], "member_id" => MID); // we use postid as "notify object id"
 	//User reward
 	if(in_multisetting($user_posts, $settings['invitemod_posts_recieve'])){
-		$im = new im(we::$user['mod_cache']['id']);
+		$im = new im(MID);
 		$im->addslot();
 		$notify['reason'] = $txt['notifier_invite_reward_reason_posts'];
 	}
 
 	//Inviter reward
 	if(in_multisetting($user_posts, $settings['invitemod_posts_reward_inviter'])){
-		$inviter_id = invited_by(we::$user['mod_cache']['id']);
+		$inviter_id = invited_by(MID);
 		if($inviter_id != 0){
 			$im = new im();
 			$im->addslot();
@@ -194,21 +194,24 @@ function im_create_post_after(&$msgOptions, &$topicOptions, &$posterOptions, &$n
 		Notification::issue('invitereward', $notify['member_id'], $notify['object'], array('invite' => array('reason' => $notify['reason'])));
 	} 
 }
+
 function im_load_theme(){
 	//Add link to invitemod on sidebar
 	global $txt;
 	loadPluginSource('CerealGuy:InviteMod', 'src/Subs-InviteMod');
 	loadPluginLanguage('CerealGuy:InviteMod', 'lang/InviteMod');
-	$im = new im(we::$user['mod_cache']['id']);
-	$im->update_availableslots();
 	
-	$keys = ($im->inviteinfo['available_slots'] == -1 ? "∞" : $im->inviteinfo['available_slots']);
+	if(($keys = cache_get_data('im_keys_'.MID)) === null){
+		$im = new im(MID);
+		$im->update_availableslots();
+		$keys = ($im->inviteinfo['available_slots'] == -1 ? "∞" : $im->inviteinfo['available_slots']);
+		cache_put_data('im_keys_'.MID, $keys, 900);
+	}
 	$ps_string = strtr($txt['im_ps_invites'] , array("{A_KEYS}" => $keys));
 	add_js('$( document ).ready(function() {var inv = "<li><a href=\"index.php?action=invite\">'.$ps_string.'</a></li>";
 		if($("#noava").length){$("#noava").append(inv);}else{$( ".now" ).before( "<ul>"+inv+"<\/ul>" );}});');
 	
 }
-
 function im_profile_areas(&$profile_areas){
 	global $context, $txt;
 	loadPluginSource('CerealGuy:InviteMod', 'src/Subs-InviteMod');
