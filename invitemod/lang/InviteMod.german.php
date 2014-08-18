@@ -42,6 +42,7 @@ $txt['im_main_list_inviteduser'] = "Eingeladene Benutzer";
 $txt['im_main_list_inviteduser_error1'] = "Du hast noch niemanden eingeladen...";
 $txt['im_main_list_inviteduser_username'] = "Benutzername";
 $txt['im_main_list_inviteduser_posts'] = "Beiträge";
+$txt['im_main_list_inviteduser_reward'] = "Nächste Vergütung";
 
 // - List invitekeys
 $txt['im_main_list_invitekeys'] = "Invite-Keys";

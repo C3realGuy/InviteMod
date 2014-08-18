@@ -58,11 +58,12 @@ function template_invitemod_message(){
 }
 function template_invitemod(){
 
-	global $invitekeys, $inviteinfo, $invitedusers, $txt;
+	global $invitekeys, $inviteinfo, $invitedusers, $txt, $settings;
 	//$invitekeys = array(array("key" => "b9ce391e970ede27e9eb0c3f6ef3f274", "id" => 1, "time_create" => 'xxxx'),);
 	//$inviteinfo = array("available_slots" => 1, "active_keys" => 2, "invited_user" => 0,);
 	//$invitedusers = array(array("id" => 0, "username" => "Test", "posts" => 7),); 
 	// Header
+	$split_set_reward_inviter = (isset($settings['invitemod_posts_reward_inviter']) ? explode(";",$settings['invitemod_posts_reward_inviter']) : array());
 	echo '<header class="cat">'.$txt['im_main_cat_value'].'</header>';
 	// Show Info
 	echo '<div class="windowbg2 wrc">
@@ -107,15 +108,25 @@ function template_invitemod(){
 					<tr class="catbg">
 						<th><a href="" rel="nofollow">'.$txt['im_main_list_inviteduser_username'].'</a></th>
 						<th><a href="" rel="nofollow">'.$txt['im_main_list_inviteduser_posts'].'</a></th>
+						<th><a href="" rel="nofollow">'.$txt['im_main_list_inviteduser_reward'].'</a></th>
 						<th class="center"></th>
 					</tr>
 				</thead>
 				<tbody>';
 
 		foreach($invitedusers as $iu){
+					$str_post = $iu['posts'];
+					$next_reward = "-";
+					foreach($split_set_reward_inviter as $i){
+						if(intval($iu['posts']) < intval($i))
+							$next_reward = $i;
+							break;
+							
+					}
 					echo '<tr class="windowbg" id="list_member_list_0">
 						<td class="center"><a href="index.php?action=profile;u='.$iu['id'].'">'.$iu["username"].'</a></td>
-						<td>'.$iu['posts'].'</td>
+						<td class="center">'.$str_post.'</td>
+						<td class="center">'.$next_reward.'</td>
 						<td></td>
 					</tr>';	
 		}

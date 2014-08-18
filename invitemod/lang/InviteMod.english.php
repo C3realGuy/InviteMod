@@ -42,6 +42,7 @@ $txt['im_main_list_inviteduser'] = "Invited Members";
 $txt['im_main_list_inviteduser_error1'] = "Currently you have no one invited...";
 $txt['im_main_list_inviteduser_username'] = "Username";
 $txt['im_main_list_inviteduser_posts'] = "Posts";
+$txt['im_main_list_inviteduser_reward'] = "Next reward";
 
 // - List invitekeys
 $txt['im_main_list_invitekeys'] = "Invite-Keys";
