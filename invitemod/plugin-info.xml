@@ -19,7 +19,6 @@
 		<text name="invitemod_posts_reward_inviter" />
 	</settings-page>
 	<hooks>
-		<function point="register_form_pre" function="im_register_form_pre" filename="$plugindir/src/InviteMod" />
 		<function point="register_validate" function="im_register_validate" filename="$plugindir/src/InviteMod" />
 		<function point="register_post" function="im_register_post" filename="$plugindir/src/InviteMod" />
 		<function point="create_post_after" function="im_create_post_after" filename="$plugindir/src/InviteMod" />

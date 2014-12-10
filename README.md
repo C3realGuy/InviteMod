@@ -17,32 +17,9 @@ Installation
 ------------
 
 1. Drop the 'invitemod' directory in your plugins folder.
-
-2. Now you have to add the custom hooks. You need to do this after each upgrade/update!
-
-   In */core/app/Register.php*<br> 
-   Search (around line 51)
-   ````
-   loadTemplate('Register');
-   ```` 
-   and add AFTER
-   ````
-   call_hook('register_form_pre', array());
-   ````
-
-
-
-   In */core/app/ManagePlugins.php*<br>
-   Search:
-   ``'register',``
-   and add AFTER:
-   ````
-			'register_form_pre',
-   ````
-   
-3. Activate plugin in acp
-4. Set permissions
-5. Configure plugin (optional)
+2. Activate plugin in acp
+3. Set permissions
+4. Configure plugin (optional)
 
 ToDo
 ----

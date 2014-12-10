@@ -1,0 +1,8 @@
+<file name="Register.php">
+	<operation>
+		<search position="after"><![CDATA[loadTemplate('Register');]]></search>
+		<add><![CDATA[loadPluginSource('CerealGuy:InviteMod', 'src/InviteMod');
+	im_register_form_pre();
+]]></add>
+	</operation>
+</file>
