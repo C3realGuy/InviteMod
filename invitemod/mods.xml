@@ -6,3 +6,11 @@
 ]]></add>
 	</operation>
 </file>
+<file name="Profile.template.php">
+	<operation>
+		<search position="after"><dd>' . $context['member']['last_login'] . '</dd>' : '', '</search>
+		<add><dt>'.$txt['im_pa_invited_by'].'</dt>
+			<dd>'.$context['invited_href'].'</dd>
+		</add>
+	</operation>
+</file>
