@@ -127,14 +127,13 @@ function im_register_validate(&$regOptions){
 		// Of course we dont need a invitekey if an admin tries to create a new member
 		return array(); 
 	}
-	$key = $_POST['invitekey'];
 	loadPluginLanguage('CerealGuy:InviteMod', 'lang/InviteMod');
 	loadPluginSource('CerealGuy:InviteMod', 'src/Subs-InviteMod');
 	
-	if(!isset($key)){
+	if(!isset($_POST['invitekey'])){
 		$invite_errors[] = array('lang', 'im_reg_err_nokey');
 	}else{ 
-		$context['invitekey'] = new invitekey($key);
+		$context['invitekey'] = new invitekey($_POST['invitekey']);
 		if(!$context['invitekey']->valid()){
 			$invite_errors[] = array('lang', 'im_reg_err_invalid');
 		}
