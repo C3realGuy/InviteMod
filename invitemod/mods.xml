@@ -6,6 +6,15 @@
 ]]></add>
 	</operation>
 </file>
+<file name="Profile-View.php">
+	<operation>
+		<search position="before">loadCustomFields($memID);</search>
+		<add>loadPluginSource('CerealGuy:InviteMod', 'src/Subs-InviteMod');
+		loadPluginLanguage('CerealGuy:InviteMod', 'lang/InviteMod');
+		$inviter_id = invited_by($context['id_member']);
+		$context['invited_href'] = ($inviter_id == 0 ? "<a>{$txt['im_nobody']}</a>" : "<a href=\"<URL>?action=profile;u=".$inviter_id."\">".id_to_username($inviter_id)."</a>");</add>
+	</operation>
+</file>
 <file name="Profile.template.php">
 	<operation>
 		<search position="after"><dd>' . $context['member']['last_login'] . '</dd>' : '', '</search>
