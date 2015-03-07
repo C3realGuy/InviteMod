@@ -181,3 +181,32 @@ function invited_by($userid){
 	}
 
 }
+
+/*
+ * Recalculates Inviteslots
+ * @
+ * @return null
+ */
+function recalculate_inviteslots($force = false){
+	global $settings;
+	$iprar = array_map('intval', explode(";", $settings['invitemod_posts_recieve']));
+	sort($iprar);
+	$query = wesqL::query('SELECT a.id_member, a.posts, b.slots_left FROM {db_prefix}members a LEFT JOIN {db_prefix}im_member b ON a.id_member = b.id_member', array());
+	while ($row = wesql::fetch_assoc($query)){
+		print_r($row);
+		$i = 0;
+		foreach($iprar as $p){
+			if($row['posts'] < $p){
+				break;
+			}
+			$i++;
+		}
+		if(!isset($row['slots_left'])){
+			create_default_user_entry($row['id_member'], $i);
+		}else if($row['slots_left'] < $i or $row['slots_left'] > $i && $force == true){
+			wesql::query('UPDATE {db_prefix}im_member SET slots_left={int:keys} WHERE id_member={int:id_member}', array('keys' => $i, 'id_member' => $row['id_member']));
+		}
+	}
+	
+
+}
