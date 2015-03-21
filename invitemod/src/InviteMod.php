@@ -127,13 +127,14 @@ function im_register_validate(&$regOptions){
 		// Of course we dont need a invitekey if an admin tries to create a new member
 		return array(); 
 	}
-	$key = $_POST['invitekey'];
+	
 	loadPluginLanguage('CerealGuy:InviteMod', 'lang/InviteMod');
 	loadPluginSource('CerealGuy:InviteMod', 'src/Subs-InviteMod');
 	
-	if(!isset($key)){
+	if(!isset($_POST['invitekey'])){
 		$invite_errors[] = array('lang', 'im_reg_err_nokey');
 	}else{ 
+		$key = $_POST['invitekey'];
 		$context['invitekey'] = new invitekey($key);
 		if(!$context['invitekey']->valid()){
 			$invite_errors[] = array('lang', 'im_reg_err_invalid');
@@ -210,6 +211,16 @@ function im_load_theme(){
 	add_js('$( document ).ready(function() {var inv = "<li><a href=\"index.php?action=invite\">'.$ps_string.'</a></li>";
 		if($("#noava").length){$("#noava").append(inv);}else{$( ".now" ).before( "<ul>"+inv+"<\/ul>" );}});');
 	
+}
+function im_profile_areas(&$profile_areas){
+	global $context, $txt;
+	if(empty($_GET['area'])){
+		loadPluginSource('CerealGuy:InviteMod', 'src/Subs-InviteMod');
+		loadPluginLanguage('CerealGuy:InviteMod', 'lang/InviteMod');
+		$inviter_id = invited_by($context['id_member']);
+		$context['invited_href'] = ($inviter_id == 0 ? "<a>{$txt['im_nobody']}</a>" : "<a href=\"<URL>?action=profile;u=".$inviter_id."\">".id_to_username($inviter_id)."</a>");
+		
+	}
 }
 
 function im_notification_callback(array &$notifiers){

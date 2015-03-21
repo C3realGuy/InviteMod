@@ -162,14 +162,14 @@ function template_invitemod(){
 		foreach($invitekeys as $i){
 					echo '<tr class="windowbg" id="list_member_list_0">
 						<td class="center">'.$i["key"].'</td>
-						<td class="center"><button onclick="reqWin(\'index.php?action=invite&delinvitekey='.$i['id'].'\')">'.$txt['im_main_list_invitekeys_butdelete'].'</button></td>
+						<td class="center"><a href="<URL>?action=invite&delinvitekey='.$i['id'].'" onclick="return reqWin(this);"><button>'.$txt['im_main_list_invitekeys_butdelete'].'</button></td>
 					</tr>';	
 		}
 		echo '</tbody>
 			</table>';
 	}
 
-	echo '<br><div class="right"><input type="submit" value="'.$txt['im_main_createinvitekey'].'" onclick="reqWin(\'index.php?action=invite&createinvitekey\')"></input></div>';
+	echo '<br><div class="right"><a href="<URL>?action=invite&createinvitekey" onclick="return reqWin(this);"><button>'.$txt['im_main_createinvitekey'].'</button></input></a></div>';
 
 
 }
