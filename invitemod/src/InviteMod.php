@@ -181,7 +181,7 @@ function im_create_post_after(&$msgOptions, &$topicOptions, &$posterOptions, &$n
 	if(in_multisetting($user_posts, $settings['invitemod_posts_reward_inviter'])){
 		$inviter_id = invited_by(MID);
 		if($inviter_id != 0){
-			$im = new im();
+			$im = new im($inviter_id);
 			$im->addslot();
 			$notify['member_id'] = $inviter_id;
 			$user_href = "<a href=\"". SCRIPT ."?action=profile&id=".MID."\">".we::$user['username']."</a>";
