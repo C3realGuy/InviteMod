@@ -8,8 +8,8 @@ class im {
 			"invited_users" => 0,
 			"available_slots" => 0);
 
-			
-	public function im($userid){
+
+	public function __construct($userid){
 		$this->inviteinfo['id'] = $userid;
 
 
@@ -28,14 +28,14 @@ class im {
 				$this->invitekeys[] = $tmparray;
 			}
 		}
-						
+
 	}
 
 	public function update_availableslots(){
 		//Update Availableslots and checks if user has an invite entry. If not it creates one.
- 
-		$query = wesql::query("SELECT id_member, slots_left 
-			FROM {db_prefix}im_member 
+
+		$query = wesql::query("SELECT id_member, slots_left
+			FROM {db_prefix}im_member
 			WHERE id_member = {int:id_user} LIMIT 1", array('id_user' => $this->inviteinfo['id']));
 		if(wesql::num_rows($query) == 0){
 			//User has no entry, therefore create one
@@ -73,37 +73,37 @@ class im {
 		$this->update_availableslots();
 		$this->update_invitedusers();
 		$this->update_invitekeys();
-	
+
 	}
 
 	public function create_invitekey(){
 		$key = create_invitekey($this->inviteinfo['id']);
 		wesql::query('INSERT INTO {db_prefix}im_keys (id, id_member, invite, time) VALUES (NULL, {int:id_member}, {string:invitekey}, UNIX_TIMESTAMP())', array("id_member" => $this->inviteinfo['id'], "invitekey" => $key));
-		
+
 		return $key;
 	}
 
 	public function del_invitekey($keyid){
 		wesql::query('DELETE FROM {db_prefix}im_keys WHERE id = {int:keyid}', array('keyid' => $keyid));
-			
+
 	}
 
 	public function infiniteslots(){
 		return allowedTo('invitemodinfiniteslots');
-	
+
 	}
 
 	public function addslot($add=+1){
 		if($add<0){$add="".$add;}else{$add="+".$add;}
 		wesql::query('UPDATE {db_prefix}im_member SET slots_left = slots_left '.$add.' WHERE id_member = {int:id_member}', array('id_member' => $this->inviteinfo['id'],));
-		
+
 	}
 	public function create_invitedmember_entry($invitedid){
 		wesql::query('INSERT INTO {db_prefix}im_invited (id_member, id_invited_from) VALUES ({int:id_member}, {int:id_invited_from})', array('id_member' => $invitedid, 'id_invited_from' => $this->inviteinfo['id']));
 
 	}
 
-	
+
 
 }
 class invitekey {
@@ -112,7 +112,7 @@ class invitekey {
 				  "id_member" => null,
                                   "invite" => "null",
                                   "time" => 0,);
-	public function invitekey($key){
+	public function __construct($key){
 		global $settings, $context, $txt;
 		$this->invitekey['invite'] = $key;
 		$query = wesql::query('SELECT id, id_member, invite, time FROM {db_prefix}im_keys WHERE invite = {string:key} LIMIT 1', array('key' => $key));
@@ -145,7 +145,7 @@ function get_user_info($userid){
 
 function create_invitekey($userid){
 	$date = new DateTime();
-	$str = $userid.$date->getTimestamp().rand(100, 999);	
+	$str = $userid.$date->getTimestamp().rand(100, 999);
 	$invkey = md5($str);
 	return $invkey;
 }
@@ -207,6 +207,6 @@ function recalculate_inviteslots($force = false){
 			wesql::query('UPDATE {db_prefix}im_member SET slots_left={int:keys} WHERE id_member={int:id_member}', array('keys' => $i, 'id_member' => $row['id_member']));
 		}
 	}
-	
+
 
 }

@@ -16,6 +16,8 @@ function imActionInvite(){
 	loadPluginSource($pid, 'src/Subs-InviteMod');
 	loadPluginLanguage($pid, 'lang/InviteMod');
 	$context['page_title'] = strtr($txt['im_main_title'], array("{FORUM_NAME}" =>$context['forum_name']));
+    loadLanguage('Profile');
+    add_linktree(sprintf($txt['profile_of_username'], we::$user['username']), '<URL>?action=profile');
 	add_linktree('Invite', '<URL>?action=invite');
 	if(!empty($_GET['test'])){
 		$context['invitekey'] = new invitekey($_GET['test']);
@@ -39,11 +41,11 @@ function imActionInvite(){
 		$im->update_all();
 		$inviteinfo = $im->inviteinfo;
 		$invitekeys = $im->invitekeys;
-		$invitedusers = $im->invitedusers;	
+		$invitedusers = $im->invitedusers;
 		wetem::load('invitemod');
 	}
 
-	
+
 }
 
 function imCreateInviteKey(){
@@ -52,7 +54,7 @@ function imCreateInviteKey(){
 
 	loadPluginTemplate($pid, 'src/InviteMod');
 	$im = new im(MID);
-		
+
 	$im->update_availableslots();
 	if($im->inviteinfo['available_slots'] > 0 or allowedto("invitemodinfiniteslots")){
 		$key = $im->create_invitekey();
@@ -81,9 +83,9 @@ function imDelInviteKey($keyid){
 	$keyid = intval($keyid);
 	$allowed = false;
 	loadPluginTemplate($pid, 'src/InviteMod');
-	
+
 	$im = new im(MID);
-	
+
 	$im->update_invitekeys();
 	foreach($im->invitekeys as $k){
 		if($k['id'] == $keyid){
@@ -108,32 +110,21 @@ function imDelInviteKey($keyid){
 	wetem::load('invitemod_popup');
 }
 
-function im_register_form_pre(){
-	global $txt;
-	//Add invitekey field on registration
-	/*echo '<dt><strong><label for="we_autov_invitekey">Invitekey:</label></strong></dt><dd>
-							<input name="invitekey" id="" size="30" tabindex="1" maxlength="32" value="" required="">
-						</dd>';
-	*/
-	add_js('$(".windowbg2.wrc").first().find("fieldset").append("<dl class=\"register_form\" id=\"invitekey\"><dt><strong><label for=\"we_autov_invitekey\">Invitekey:</label></strong></dt><dd><input name=\"invitekey\" size=\"30\" tabindex=\"5\" ></dd></dl>");');
-
-}
-
 function im_register_validate(&$regOptions){
 	//Validate registration key
 	global $settings, $context, $txt;
 	$invite_errors = array();
 	if($regOptions['interface'] != 'guest'){
 		// Of course we dont need a invitekey if an admin tries to create a new member
-		return array(); 
+		return array();
 	}
-	
+
 	loadPluginLanguage('CerealGuy:InviteMod', 'lang/InviteMod');
 	loadPluginSource('CerealGuy:InviteMod', 'src/Subs-InviteMod');
-	
+
 	if(!isset($_POST['invitekey'])){
 		$invite_errors[] = array('lang', 'im_reg_err_nokey');
-	}else{ 
+	}else{
 		$key = $_POST['invitekey'];
 		$context['invitekey'] = new invitekey($key);
 		if(!$context['invitekey']->valid()){
@@ -149,14 +140,14 @@ function im_register_post(&$regOptions, &$theme_vars, &$memberID){
 	//Registration was successful, now update user info
 	global $settings, $context, $txt;
 	if($regOptions['interface'] == 'guest'){ // Only if user is guest => "real" registration
-		
+
 		loadPluginSource('CerealGuy:InviteMod', 'src/Subs-InviteMod');
 		$im = new im($context['invitekey']->invitekey['id_member']);
 		$im->del_invitekey($context['invitekey']->invitekey['id']);
 		$im->create_invitedmember_entry($memberID);
-	
+
 		//Send notification that user has successful registered
-	
+
 		Notification::issue('invitenewuser', $context['invitekey']->invitekey['id_member'], $context['invitekey']->invitekey['id'], array('invite' => array('invited_id' => $memberID)));
 	}
 
@@ -192,42 +183,13 @@ function im_create_post_after(&$msgOptions, &$topicOptions, &$posterOptions, &$n
 	if(!empty($notify['reason'])){
 		$notify['reason'] = strtr($notify['reason'], array("{USER-HREF}" => $user_href, "{POSTS}" => $user_posts));
 		Notification::issue('invitereward', $notify['member_id'], $notify['object'], array('invite' => array('reason' => $notify['reason'])));
-	} 
+	}
 }
 
-function im_load_theme(){
-	//Add link to invitemod on sidebar
-	global $txt;
-	loadPluginSource('CerealGuy:InviteMod', 'src/Subs-InviteMod');
-	loadPluginLanguage('CerealGuy:InviteMod', 'lang/InviteMod');
-	
-	if(($keys = cache_get_data('im_keys_'.MID)) === null){
-		$im = new im(MID);
-		$im->update_availableslots();
-		$keys = ($im->inviteinfo['available_slots'] == -1 ? "∞" : $im->inviteinfo['available_slots']);
-		cache_put_data('im_keys_'.MID, $keys, 900);
-	}
-	$ps_string = strtr($txt['im_ps_invites'] , array("{A_KEYS}" => $keys));
-	add_js('$( document ).ready(function() {var inv = "<li><a href=\"index.php?action=invite\">'.$ps_string.'</a></li>";
-		if($("#noava").length){$("#noava").append(inv);}else{$( ".now" ).before( "<ul>"+inv+"<\/ul>" );}});');
-	
-}
-function im_profile_areas(&$profile_areas){
-	global $context, $txt;
-	if(empty($_GET['area'])){
-		loadPluginSource('CerealGuy:InviteMod', 'src/Subs-InviteMod');
-		loadPluginLanguage('CerealGuy:InviteMod', 'lang/InviteMod');
-		$inviter_id = invited_by($context['id_member']);
-		$context['invited_href'] = ($inviter_id == 0 ? "<a>{$txt['im_nobody']}</a>" : "<a href=\"<URL>?action=profile;u=".$inviter_id."\">".id_to_username($inviter_id)."</a>");
-		
-	}
-}
 
 function im_notification_callback(array &$notifiers){
 	loadPluginSource('CerealGuy:InviteMod', 'src/InviteMod-Notifier');
-	
+
 	$notifiers['invite_reward'] = new InviteReward_Notifier();
 	$notifiers['invite_newuser'] = new InviteNewUser_Notifier();
 }
-
-
