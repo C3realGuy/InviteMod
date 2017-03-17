@@ -77,7 +77,7 @@ class InviteNewUser_Notifier extends Notifier {
 	{
 		// We will not redirect anywhere else
 		$data = $notification->getData();
-		return '<URL>?action=profile&id='.$data['invite']['invited_id'];
+		return '<URL>?action=profile;u='.$data['invite']['invited_id'];
 	}
 
 	public function getUserURL($id)
@@ -87,7 +87,7 @@ class InviteNewUser_Notifier extends Notifier {
 		loadMemberData($id);
 		loadMemberContext($id);
 		$name = $memberContext[$id]['name'];
-		return "<a href=\"".SCRIPT."?action=profile&id={$id}\">{$name}</a>";
+		return "<a href=\"".SCRIPT."?action=profile;u={$id}\">{$name}</a>";
 	}
 	public function getText(Notification $notification, $is_email = false)
 	{
