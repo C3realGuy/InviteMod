@@ -24,21 +24,22 @@ Installation
 Recalculate Inviteslots
 ----------------------
 
-If you want to recalculate the inviteslots the users should have, 
+If you want to recalculate the inviteslots the users should have,
 create a new php file in your wedge folder (eg fix_inviteslots.php).
-Open the file and insert
-'''
+Open the file and insert:
+```
 <?php
 require_once('core/SSI.php');
 loadPluginSource('CerealGuy:InviteMod', 'src/Subs-InviteMod');
 recalculate_inviteslots();
-'''.
+```
+
 If you have ssh access or something similar, you can run it from the console.
 Otherwise open it up in your browser. Now it should have recalculated the inviteslots.
 It also creates all invitemod entries for the users, so maybe its helpful if you have
 many members which were already registered before you enabled this plugin.
-If some members have to many inviteslots, you can change the last line to 
-''recalculate_invitekeys(true);'' and it will set the inviteslots also if the user had
+If some members have to many inviteslots, you can change the last line to
+`recalculate_invitekeys(true);` and it will set the inviteslots also if the user had
 more inviteslots before. Otherwise not.
 
 This is just some quick hack, maybe i will implement it better into wedge, but i dont
@@ -50,4 +51,3 @@ ToDo
 
 - Better Permissions
 - more admin options
-
