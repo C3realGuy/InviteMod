@@ -1,6 +1,7 @@
 <?php
 
 function im_menu_items(&$items) {
+	global $txt;
     loadPluginSource('CerealGuy:InviteMod', 'src/Subs-InviteMod');
 	loadPluginLanguage('CerealGuy:InviteMod', 'lang/InviteMod');
 
@@ -14,9 +15,9 @@ function im_menu_items(&$items) {
     // Add it to menu
     array_splice($items['profile']['items'], 4, 0, [
         'invite' => [
-            'title' => 'Invite',
+            'title' => $txt['im_menu_invite'],
             'href' => '<URL>?action=invite',
-            'show' => true,
+            'show' => we::$is_member,
             'notice' => $keys,
         ],
     ]);

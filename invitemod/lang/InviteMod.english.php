@@ -25,6 +25,8 @@ $txt['im_pa_invited_by'] = "Invited by:";
 
 // Profile Sidebar
 $txt['im_ps_invites'] = "Invites ({A_KEYS})";
+$txt['im_menu_invite'] = "Invite";
+
 
 // Invitemod Main
 // - Main
@@ -53,5 +55,3 @@ $txt['im_main_list_invitekeys_butdelete'] = "Delete";
 // Registration
 $txt['im_reg_err_invalid'] = "Invalid Invitekey";
 $txt['im_reg_err_nokey'] = "No key entered";
-
-

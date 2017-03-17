@@ -18,7 +18,7 @@ function imActionInvite(){
 	$context['page_title'] = strtr($txt['im_main_title'], array("{FORUM_NAME}" =>$context['forum_name']));
     loadLanguage('Profile');
     add_linktree(sprintf($txt['profile_of_username'], we::$user['username']), '<URL>?action=profile');
-	add_linktree('Invite', '<URL>?action=invite');
+	add_linktree($txt['im_menu_invite'], '<URL>?action=invite');
 	if(!empty($_GET['test'])){
 		$context['invitekey'] = new invitekey($_GET['test']);
 		$memberID = 2;
