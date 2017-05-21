@@ -20,11 +20,17 @@
         <search position="before">				</fieldset></search>
         <add>
             <dl class="register_form" id="invitekey">
-                <dt><strong><label for="we_autov_invitekey">Invitekey:</label></strong></dt>
+                <dt><strong><label for="we_autov_invitekey">' . $txt['im_main_list_invitekeys_invitekey'] . ':</label></strong></dt>
                 <dd>
                     <input name="invitekey" size="30" tabindex="5" >
                 </dd>
             </dl>
+        </add>
+    </operation>
+    <operation>
+        <search position="before">	// Any errors?</search>
+        <add>
+            loadPluginLanguage('CerealGuy:InviteMod', 'lang/InviteMod');
         </add>
     </operation>
 </file>
